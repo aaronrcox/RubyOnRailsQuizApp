@@ -16,19 +16,35 @@
 
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,900);
 
+html {
+    height: 100%;
+}
+
 body {
     background: linear-gradient(to bottom, rgba(140,122,122,1) 0%, rgba(175,135,124,1) 65%, rgba(175,135,124,1) 100%) fixed;
     background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/coc-background.jpg') no-repeat center center fixed;
     background-size: cover;
     font: 14px/20px "Lato", Arial, sans-serif;
     color: #9E9E9E;
-    margin-top: 30px;
+    height: 100%;
 }
 
-.card-container {
+.container {
+    height: 100%;
+}
+
+.btn-outline-scd {
+    border: 2px solid #37474F !important;
+    color: #37474F !important;
+}
+
+.btn-flat {
+    box-shadow: none;
+}
+
+/* .card-container {
     margin: auto;
-    width: 600px;
-    text-align: center;  
+    width: 600px;  
 }
 
 .card {
@@ -38,6 +54,9 @@ body {
     margin: auto;
     border-radius: 14px;
     position: relative;
-    text-align: center;
     box-shadow: 0px 4px 3px 0px rgba(0, 0, 0, 0.38);
-  }
+}
+
+.card-body {
+    padding: 10px;
+} */

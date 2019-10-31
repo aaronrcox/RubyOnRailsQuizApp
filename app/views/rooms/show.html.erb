@@ -1,0 +1,6 @@
+
+<% if @current_user && @current_user.id == @room.user_id %>
+  <%= render :partial => 'presenter_show' %>
+<% else %>
+    <%= render :partial => 'guest_show' %>
+<% end %>

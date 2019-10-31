@@ -1,0 +1,103 @@
+
+<div class="h-100 d-flex justify-content-center">
+
+    <div class="card align-self-center w-100">
+        <h5 class="card-header special-color-dark white-text py-4">
+			<strong>Presenter Room: </strong>
+		</h5>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4">
+                    <%= form_with(url: "/rooms/"+@room.name+"/questions", method: "post", :html => {:id => 'new_question_form', :class => "form-inline"}) do %>
+
+                        <div class="input-group input-group-sm mb-2 w-100">
+                        
+                            <input type="text" class="form-control" id="newQuestionNameInput" name="question_name" placeholder="Question name" >
+                            <div class="input-group-append">
+                                <button type="submit" class="btn-delete-question-response btn btn-sm btn-outline-primary m-0 z-depth-0 waves-effect" style="font-size: x-small;"
+                                    type="button">Create</button>
+                            </div>
+                        </div>
+                    <% end %>
+
+                    <ul class="list-group" id="questions_list">
+                        <!-- Content inserted via JS and Handlebars template: question-list-template -->
+                    </ul>
+
+                </div>
+                <div class="col-8">
+                    <div class="" id="questions_info">
+                        <!-- Content inserted via JS and Handlebars template: question-list-template -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <small>
+            some footer stuff
+            </small>
+            
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let ROOM_NAME = '<%= @room.name %>';
+</script>
+
+<script id="question-list-template" type="text/x-handlebars-template">
+    {{#each questions as |question index|}}
+        <li class="list-group-item list-group-item-action" id="question_{{question.id}}"
+            data-question-id="{{question.id}}">{{question.name}}</li>
+    {{/each}}
+</script>
+
+<script id="question-info-template" type="text/x-handlebars-template">
+    
+    <%= form_with( data: { url: "/rooms/"+@room.name+"/questions/{{question.id}}" },
+        method: "post", :html => {:id => 'update_question_form'}) do |f| %>
+
+        <h5 class="mb-3">
+            {{question.name}}
+        </h5>
+        
+
+        <div id="question-editor">
+            {{question.description}}
+        </div>
+        <input type="hidden" name="question[description]" id="question_description_input">
+
+        <br />
+
+        {{#each question.question_responses as |response index|}}
+        <div class="input-group input-group-sm mb-2" style="opacity:{{ternary response.should_delete 0.25 1}}">
+            <input type="hidden" name="response[{{index}}[id]]" value={{response.id}} >
+            <input type="hidden" class="response-delete-form-input" data-response-index={{index}} name="response[{{index}}[delete]]" 
+                value={{safeVal response.should_delete 'false'}} >
+            <input type="text" class="form-control question-response-item" data-response-index={{index}}
+                name="response[{{index}}[description]]" value="{{response.description}}" >
+            <div class="input-group-append">
+                <button class="btn-delete-question-response btn btn-sm btn-outline-danger m-0 z-depth-0 waves-effect" style="font-size: x-small;"
+                    type="button">{{ternary response.should_delete 'undo-delete' 'delete'}}</button>
+            </div>
+        </div>
+        {{/each}}
+
+        <div class="input-group input-group-sm mb-2" >
+            <input type="text" class="form-control question-response-item-add">
+            <div class="input-group-append">
+                <button class="btn-add-question-response btn btn-sm btn-outline-default m-0 z-depth-0 waves-effect pl-3 pr-3" style="font-size: x-small;"
+                    type="button">Add</button>
+            </div>
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary btn-sm z-depth-0 btn-block m-0 ">Update</button>
+        
+    <% end %>
+
+</script>
+
+<script type="text/javascript" src="/js/_presenter_show.js"></script>

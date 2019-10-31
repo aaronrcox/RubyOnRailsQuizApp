@@ -1,10 +1,42 @@
+<div class="h-100 d-flex justify-content-center">
 
-<div class="card-container">
-    <div class="card">
-    
-        <p>The quick brown fox</p>
+    <div class="card align-self-center" style="min-width:500px;">
+        <h5 class="card-header special-color-dark white-text text-center py-4">
+			<strong>Quiz App</strong>
+		</h5>
+        <div class="card-body">
 
+            <%= form_with(url: "/room/join", local: true, method: "post") do %>
+				
+				<div class="md-form">
+					<input type="text" name="room_name" id="room_name" class="form-control">
+					<label for="room_name">Room Name</label>
+				</div>
+
+				<div class="md-form">
+					<input type="text" name="guest_name" id="guest_name" class="form-control">
+					<label for="user_name">Your Name</label>
+				</div>
+
+				 <!-- Sign in button -->
+      			<button  name="commit" value="Submit" class="btn btn-outline-scd btn-block my-4 waves-effect z-depth-0" type="submit">Join Room</button>
+
+            <% end %>
+
+
+        </div>
+        <div class="card-footer text-muted">
+            <small>
+            I'm a presenter 
+            <%= link_to "Log In", login_path %> / 
+            <%= link_to "Sign Up", signup_path %>
+            </small>
+            
+        </div>
     </div>
+
 </div>
 
-
+<pre style="width: 600px; height: 300px; background: white; color: black;">
+    <%= debug session %>
+</pre>
